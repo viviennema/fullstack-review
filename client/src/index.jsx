@@ -10,32 +10,37 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-    this.retrieve = this.retrieve.bind(this);
+    //this.retrieve = this.retrieve.bind(this);
 
   }
+
 
   search (term) {
     console.log(`${term} was searched`);
-    $.ajax({
-      type: 'POST',
-      url: '/repos',
-      data: {term: term},
-      success: console.log("sent"),
-      dataType: 'JSON'
-    });
+    fetch('http://localhost:1128/repos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username: term})
+    })
+     .then(res => {
+      console.log('data', res);
+     })
+      .catch(err => {console.log('err', err)});
   }
 
-   retrieve() {
-    $.ajax({
-      type: 'GET',
-      url: '/repos',
-      success: (data) => {
-        this.setState({repos: data});
-      }
-    });
+  //  componentDidMount() {
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: '/repos',
+  //     success: (data) => {
+  //       this.setState({repos: data});
+  //     }
+  //   });
 
 
-  }
+
 
   render () {
     return (<div>

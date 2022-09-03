@@ -16,14 +16,14 @@ let getReposByUsername = (username) => {
       'Authorization': `token ${config.TOKEN}`
     },
   }
-  // axios.get(options)
-  //  .then(function(response) {
-  //   console.log(response);
-  //  })
-  //  .catch(function (error) {
-  //   console.log(error);
-  //  })
-  return axios(options);
+  return axios(options)
+   .then(function(res) {
+    console.log(res)
+   })
+   .catch(function (error) {
+    console.log(error);
+   })
+
 
 }
 
