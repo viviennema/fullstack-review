@@ -17,17 +17,10 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    fetch('http://localhost:1128/repos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({username: term})
-    })
-     .then(res => {
-      console.log('data', res);
-     })
-      .catch(err => {console.log('err', err)});
+   var url = 'http://localhost:1128/repos';
+   axios.post(url, {username: term}).then(() => {
+    console.log('posted to DB');
+   })
   }
 
   //  componentDidMount() {

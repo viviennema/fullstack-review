@@ -1,5 +1,6 @@
 const express = require('express');
 const {getReposByUsername} = require('../helpers/github.js');
+const {save, readTop25} = require('../database/index.js');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -14,7 +15,10 @@ app.post('/repos', function (req, res) {
   var term = req.body.username;
   getReposByUsername(term)
    .then((data) => {
-    res.send(JSON.stringify(data))
+    save(data, () => {
+      res.status(201).send(term);
+    })
+
    })
 
 
